@@ -20,7 +20,7 @@ def carregar_dados():
         with open("saveJ2.json", "r") as file:
             return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
-        return {"coins": 5, "fome": 40, "energia": 100, "feliz": 100, "nome": "Pou", "pontuaçãoMaxima": 0, "vermelhoComprado": False, "azulClaroComprado": False, "azulEscuroComprado": False, "verdeComprado": False, "amareloComprado": False, "roxoComprado": False, "Dolf": False, "nessecidades": 0, "banho": 0}  
+        return {"coins": 5, "fome": 40, "energia": 100, "feliz": 100, "nome": "Pou", "pontuaçãoMaxima": 0, "vermelhoComprado": False, "azulClaroComprado": False, "azulEscuroComprado": False, "verdeComprado": False, "amareloComprado": False, "roxoComprado": False, "Dolf": False, "nessecidades": 0, "banho": 0, "pao": 1, "salada": 0, "pastel": 0, "coxinha": 0}  
 
 
 def VerificarCor():
@@ -64,10 +64,10 @@ feliz = dados["feliz"] # mostra o quão feliz o pou está
 coins = dados["coins"] # dinheiro do plater
 # Comidas
 fome = dados["fome"] # a fome do pou
-pao = 0
-salada = 0
-pastel =  1
-coxinha = 0
+pao = dados["pao"]
+salada = dados["salada"]
+pastel =  dados["pastel"]
+coxinha = dados["coxinha"]
 comidaNum = pao + salada + pastel + coxinha # quantidade de comidas
 
 # Banheiro
@@ -898,6 +898,11 @@ dados["energia"] = energia
 dados["feliz"] = feliz
 dados["banho"] = banho
 dados["nessecidades"] = nessecidades
+
+dados["pao"] = pao
+dados["salada"] = salada
+dados["pastel"] = pastel
+dados["coxinha"] = coxinha
 
 dados["nome"] = nome
 
