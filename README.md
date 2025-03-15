@@ -60,10 +60,10 @@ Se de alguma forma você pegou esse código sem ver o desenvolvedor do jogo, bem
 
 
 ## Atualizações:
-###Mudança na ReadMe:
+### Mudança na ReadMe:
 - Nova aba: Atualizações
 - Leve mudança na parte do "Código por IA"
 - Removido: Aba de agradecimento(pode voltar em breve)
-###Mudança no Código:
+### Mudança no Código:
 - Conquistas adicionadas
 - Melhoria na aba "Info"
