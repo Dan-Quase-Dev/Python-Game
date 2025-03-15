@@ -20,7 +20,7 @@ def carregar_dados():
         with open("saveJ2.json", "r") as file:
             return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
-        return {"coins": 5, "fome": 40, "energia": 100, "feliz": 100, "nome": "Pou", "pontuaçãoMaxima": 0, "vermelhoComprado": False, "azulClaroComprado": False, "azulEscuroComprado": False, "verdeComprado": False, "amareloComprado": False, "roxoComprado": False, "Dolf": False, "nessecidades": 0, "banho": 0, "pao": 1, "salada": 0, "pastel": 0, "coxinha": 0}  
+        return {"coins": 5, "fome": 40, "energia": 100, "feliz": 100, "nome": "Pou", "pontuaçãoMaxima": 0, "vermelhoComprado": False, "azulClaroComprado": False, "azulEscuroComprado": False, "verdeComprado": False, "amareloComprado": False, "roxoComprado": False, "Dolf": False, "nessecidades": 0, "banho": 0, "pao": 0, "salada": 0, "pastel": 1, "coxinha": 0, "AmigoDoDolf": False, "Alimentado": False, "GuerreiroMatematico": False, "sortudo": False, "NameTag": False, "rico": False, "nomes": 0, "comidasDadas": 0, "vezes": 0}  
 
 
 def VerificarCor():
@@ -52,7 +52,6 @@ def VerificarCor():
 dados = carregar_dados()
 
 
-
 #-----------------------------------
 # variáveis
 
@@ -78,8 +77,6 @@ banho = dados["banho"] # o quão sujo o pou está
 nome = dados["nome"]
 fraseNum = random.randint(0, 5)
 frases = ["Haha engraçado.", "huuummm, acho que não.", "Eehhhhhhhhhhhh... Talvez...?", "Eu gosto da tua mãe, aquela gostosa.", "Isso é fácil!", "Não entendi o que você quis dizer"]
-frasesEspecias = ["NaaaaAAAÂâaãaaãa~~ão cCaaalleEE A bOOOccccÂÂAããÃ", "Porquê quer saber?", "...", "Quee-quem é é ... bo- bo- bot?", "Quem você acha que é?", "@#@$/;.,<><<,.,0,.+-*%¨&&*¨¨&/*+"]
-
 # números do jogo
 maxNum = 2
 minNum = 0
@@ -95,6 +92,7 @@ vidaPlater = 50
 vidaBot = 50
 cartasnum = 0
 opNum = 1
+vitorias = 0
 
 
 # Cores:
@@ -122,22 +120,40 @@ roxoComprado = dados["roxoComprado"]
 
 # Dolf
 Dolf = dados["Dolf"]
-AmigoDoDolf = False
 DVezes = 0
 DFraseNum = random.randint(0, 2)
  # Frases Dolf
 DFrases = [f"{azulEscuro}Dolf:{amarelo}Ei vem que eu tenho umas coisas.", f"{azulEscuro}Dolf:{amarelo}Ae pega esse dinheiro.", f"{azulEscuro}Dolf:{amarelo}Tenho dinheiro e muito mais."]
 DFrases2 = [f"{azulEscuro}Dolf:{amarelo}Sabia que você viria. (:", f"{azulEscuro}Dolf:{amarelo}Ae vocé veio!", f"{azulEscuro}Dolf:{amarelo}Vem que tem coisa boa."]
-DFrases3 = [f"{azulEscuro}Dolf:{amarelo}", f"{azulEscuro}Dolf:{amarelo}", f"{azulEscuro}Dolf:{amarelo}"]
+DFrases3 = [f"{azulEscuro}Dolf:{amarelo}Vou me arrepender disso, mas ai eu te ajudei, me dá uma nota boa.", f"{azulEscuro}Dolf:{amarelo}Espero que pelo menos seja uma nota boa", f"{azulEscuro}Dolf:{amarelo}Eu sou nota 10... Né?"]
+DFrases4 = [f"{azulEscuro}Dolf:{amarelo}Ei! Já que você já me visitou tantas vezes pega isso de brinde", f"{azulClaroComprado}Dolf:{amarelo}Vem que eu tenho essa conquista pra te dar", f"{azulClaroComprado}Dolf:{amarelo} Você já é meu amigo a bastante tempo, mas agora pegue isso como prova de nossa amizade"]
 
+# Conquistas
+AmigoDoDolf = dados["AmigoDoDolf"] # Visite Dolf 100 vezes
+Alimentado =  dados["Alimentado"] # Alimente seu pet pela primeira vez
+GuerreiroMatematico = dados["GuerreiroMatematico"] # Vença batalha numerosa 1 vez
+sortudo = dados["sortudo"] # tenha sorte para que um núnero gerado aleátoriamente seja igual à 123
+NameTag = dados["NameTag"] # Dê um novo nome ao seu pet
+rico = dados["rico"] # tenha 1000 moedas
+# Raridades
+# Branco: Comum
+# Verde: Incomum
+# Amarelo: Raro
+# Azul Claro: Épico
+# Roxo: Mítico
 
-
+# Números
+sorte = random.randint(0, 10000)
+nomes = dados["nome"]
+comidasDadas = dados["comidasDadas"]
+vezes = dados["vezes"]
 # ----------------------------------
 # codigos
 
 while True:
     VerificarCor()
     fraseNum = random.randint(0, 4)
+    sorte = random.randint(0, 10000)
     energia -= 5
     fome += 5
     nessecidades += 10
@@ -147,6 +163,24 @@ while True:
     
     elif fome >= 95:
         energia -= 50
+
+
+    if sorte == 123 and sortudo == False:
+        sortudo = True
+        print("Conquista desbloqueada")
+        print(f"{roxo}-=Sortudo=-")
+        VerificarCor()
+    elif sorte != 123:
+        pass
+
+
+    if coins >= 1000 and rico == False:
+        rico = True
+        print("Conquista Desbloqueada")
+        print(f"{amarelo}-=Rico=-")
+        VerificarCor()
+    elif coins < 1000:
+        pass
 
     print(f"Energia: {energia}")
     print(f"Fome: {fome}")
@@ -180,58 +214,86 @@ while True:
             resp2 = intup("Digite opção: ")
 
             if resp2 ==  1 and comidaNum >= 1 and fome >= 10:
+                vezes += 1
                 while True:
                     print(f"Fome: {fome}")
                     print("Escolha a Comida:")
                     print("[0] < Sair")
-                    print("[1] Pão")
-                    print("[2] Salada")
-                    print("[3] Pastel")
-                    print("[4] Coxinha")
+                    if pao == 1:
+                        print(f"[1] Pão / {pao} Pão")
+                    if pao != 1:
+                        print(f"[1] Pão / {pao} Pães")
+
+                    if salada != 1:
+                        print(f"[2] Salada / {salada} Saladas")
+                    if salada == 1:
+                        print(f"[2] Salada / {salada} Salada")
+
+                    if pastel != 1:
+                        print(f"[3] Pastel / {pastel} Pasteis")
+                    if pastel == 1:
+                        print(f"[3] Pastel / {pastel} Pastel")
+
+                    if coxinha != 1:
+                        print(f"[4] Coxinha / {coxinha} Coxinhas")
+                    if coxinha == 1:
+                        print(f"[4] Coxinha / {coxinha} Coxinha")
 
                     resp11 = intup("> ")
 
                     if resp11 == 1:
-                        if pao >= 1 and fome >= 10:
-                            fome -= 10
-                            pao -= 1
-                            print("Alimentado.")
-                        if pao < 1 and fome >= 10:
+                        if pao < 1:
                             print("Sem pão")
                         if fome <= 9:
                             print("Sem fome")
+                        if pao >= 1 and fome >= 10:
+                            fome -= 10
+                            pao -= 1
+                            comidasDadas += 1
+                            print("Alimentado.")
                     
                     elif resp11 == 2:
-                        if salada >= 1 and fome >= 10:
-                            fome -= 5
-                            salada -= 1
-                            print('Alimentado')
-                        if salada < 1 and fome >= 10:
+                        if salada < 1 :
                             print("Sem salada")
                         if fome <= 9:
                             print("Sem fome")
+                        if salada >= 1 and fome >= 10:
+                            fome -= 5
+                            salada -= 1
+                            comidasDadas += 1
+                            print('Alimentado')
 
                     elif resp11 == 3:
-                        if pastel >= 1 and fome >= 10:
+                        if pastel < 1 :
+                            print("Sem pastel")
+                        if fome <= 14:
+                            print("Sem fome")
+                        if pastel >= 1 and fome >= 15:
                             fome -= 15
                             pastel -= 1
+                            comidasDadas += 1
                             print("Alimentado")
-                        if pastel < 1 and fome >= 10:
-                            print("Sem pastel")
-                        if fome <= 9:
-                            print("Sem fome")
 
                     elif resp11 == 3:
-                        if coxinha >= 1 and fome >= 10:
+                        if coxinha < 1:
+                            print("Sem coxinha")
+                        if fome <= 19:
+                            print("Sem fome")
+                        if coxinha >= 1 and fome >= 20:
                             fome -= 20
                             coxinha -= 1
+                            comidasDadas += 1
                             print("Alimentado")
-                        if coxinha < 1 and fome >= 10:
-                            print("Sem coxinha")
-                        if fome <= 9:
-                            print("Sem fome")
+
+                    
 
                     elif resp11 == 0:
+                        if comidasDadas == 1 and vezes == 1 and Alimentado == False:
+                            Alimentado = True
+                            print("Conquista Desbloqueda")
+                            print(f"{branco}-=Alimentado=-")
+                            VerificarCor()
+                        comidaNum = pao + salada + coxinha + pastel
                         print("Saindo")
                         time.sleep(0.5)
                         break
@@ -275,6 +337,7 @@ while True:
                         print("Comprado")
 
                     elif resp3 == 1:
+                        comidaNum = pao + salada + coxinha + pastel
                         break
 
             elif resp2 == 3:
@@ -369,6 +432,8 @@ while True:
                             break
 
                 elif resp5 == 7:
+                    vidaBot = 50
+                    vidaPlater = 50
                     print("Escolha uma carta e torça para que \nela seja maior que a do bot\nQuem tiver a carta menor\nLeva dano somado das suas cartas e do bot")
                     itensLista = 5
                     cartasnum = 0
@@ -390,13 +455,23 @@ while True:
                                 print("O bot venceu")
                                 coins += 5
                             if vidaBot < vidaPlater:
+                                vitorias += 1
                                 print("Você ganhou")
                                 coins += vidaPlater
+                                time.sleep(2)
+                                if vitorias >= 1 and GuerreiroMatematico == False:
+                                    GuerreiroMatematico = True
+                                    print("Conquista Debloqueada")
+                                    print(f"{verde}-=Guerreiro Matemático=-")
+                                    VerificarCor()
+                                elif vitorias < 1:
+                                    pass
                                 time.sleep(2)
                             break
                         resp10 = intup("-> ")
 
-
+                        if resp10 > itensLista:
+                            print("Sem essa carta")
                         
                         if resp10 == 1 and itensLista > 0 and vidaPlater > 0 and vidaBot > 0:
                             print(f"Você escolheu {cartasPlater[0]}")
@@ -477,8 +552,7 @@ while True:
                             cartasBot.remove(cartasBot[4])
                             itensLista -= 1
 
-                        elif resp10 > itensLista:
-                            print("Sem essa carta")
+
 
 
 
@@ -748,6 +822,7 @@ while True:
             print("[1] < Sair")
             print("[2] Conversar")
             print("[3] Mudar nome")
+            print("[4] Conquistas")
 
             resp8 = intup("Digite função: ")
 
@@ -758,11 +833,8 @@ while True:
                     fraseNum = random.randint(0, 5)
                     respText = input("-> ")
 
-                    if respText.upper() != "SAIR" and respText.upper() != "YOU GHOST THE DAWN O COOL":
+                    if respText.upper() != "SAIR":
                         print(f"{nome}: {frases[fraseNum]}")
-
-                    elif respText.upper() == "YOU GHOST THE DAWN O COOL":
-                        print(f'{nome}: Iiihhhhhhhhhhh la ele rapa.')
 
                     elif respText.upper() == "SAIR":
                         print("Saindo...")
@@ -774,8 +846,99 @@ while True:
                 nome = input("-> ")
 
                 print(f"Nome alterado para {nome}")
+                nomes +=1
 
                 time.sleep(3)
+                if nomes == 1 or nomes == 0 and NameTag == False:
+                    NameTag = True
+                    print("Conquista Desbloqueada")
+                    print(f"{branco}-=Name Tag=-")
+                    VerificarCor()
+                elif nomes > 1:
+                    pass
+
+                time.sleep(2)
+
+            elif resp8 == 4:
+                while True:
+                    print("Conquistas")
+                    if rico == False:
+                        print("???")
+                        print("  ???")
+                    elif rico == True:
+                        print(f"{amarelo} 1.Rico")
+                        print("  Tenha pelo menos 1000 moedas")
+                        VerificarCor()
+
+                    if NameTag == False:
+                        print("???")
+                        print("  ???")
+                    elif NameTag == True:
+                        print(f"{branco} 2.Name Tag")
+                        print("  Dê um novo nome ao seu pet")
+                        VerificarCor()
+
+                    if sortudo == False:
+                        print("???")
+                        print("  ???")
+                    elif sortudo == True:
+                        print(f"{roxo} 3.Sortudo")
+                        print("  Tenha a sorte de um número gerado aleátoriamente entre 1 e 10 mil seja igual à 123")
+                        VerificarCor()
+
+                    if GuerreiroMatematico == False:
+                        print("???")
+                        print("  ???")
+                    elif GuerreiroMatematico == True:
+                        print(f"{verde} 4.Guerreiro Matemático")
+                        print("  Vença pelo menos uma vez o jogo Batalha Númerosa.")
+                        VerificarCor()
+
+                    if Alimentado == False:
+                        print("???")
+                        print("  ???")
+                    elif Alimentado == True:
+                        print(f"{branco} 5.Alimentado")
+                        print(f"  Alimente {nome} pelo menos uma vez.")
+                        VerificarCor()
+
+                    print("- Conquistas Especiais")
+                    if AmigoDoDolf == False:
+                        print(azulEscuro)
+                        print("???")
+                        print("  ???")
+                        VerificarCor()
+                    elif AmigoDoDolf == True:
+                        print(f"{azulEscuro} 1.Amigo Do Dolf")
+                        print("  Visite Dolf 100 vezes")
+                        VerificarCor()
+
+
+                    print("[0] Sair")
+                    print("[1] Raridades")
+                    resp12 = intup(">")
+
+                    if resp12 == 1:
+                        print("Raridades:")
+                        print(f"{branco}Branco: Comum")
+                        print(f"{verde}Verde: Incomum")
+                        print(f"{amarelo}Amarelo: Raro")
+                        print(f"{azulClaro}Azul Claro: Épico")
+                        print(f"{roxo}Roxo: Mítico")
+                        VerificarCor()
+                        print("-=" * 40)
+                        print("")
+                        print(f"{azulEscuro}Azul Escuro: Conquistas Especiais(Grau 2 de raidade)")
+                        print(f"{vermelho}Vermelho: Conquistas Especiais (Grau 1 de raridade)")
+                        VerificarCor()
+                        time.sleep(8)
+
+                    elif resp12 == 0:
+                        print("Saindo")
+                        time.sleep(0.5)
+                        break
+
+
 
             elif resp8 == 1:
                 print("Saindo...")
@@ -795,6 +958,16 @@ while True:
         print(f"{azulEscuro}Dolf:{amarelo}Pode escolher.")
         time.sleep(1)
         print(f"{azulEscuro}Dolf:{amarelo}Mas tem alguns limites, infelizmente ):")
+
+        if DVezes >= 100:
+            AmigoDoDolf = True
+            print(f"{DFrases4[DFraseNum]}")
+            VerificarCor()
+            print("Conquista(Especial) Desbloqueada")
+            print(f"{azulEscuro} Amigo Do Dolf")
+            VerificarCor()
+        elif DVezes < 100:
+            pass
         while True:
 
             VerificarCor()
@@ -806,26 +979,51 @@ while True:
 
             if Dresp == 1:
                 print(f'{azulEscuro}Dolf:{amarelo}Tá mas, quantas moedas você quer?')
+                VerificarCor()
 
                 Dresp2 = intup("-> ")
                 coins = Dresp2
 
                 print(f"{azulEscuro}Dolf:{amarelo}Tá. É só eu mudar o valor, e... Pronto!")
+                VerificarCor()
 
 
             elif Dresp == 2:
                 print(f"{azulEscuro}Dolf:{amarelo} fome-= 1000, pronto")
 
                 fome -= 1000
+                VerificarCor()
 
 
             elif Dresp == 3:
                 print(f"{azulEscuro}Dolf:{amarelo} energia infinita? Ok.")
-                energia += 199999999999999999999999999999999999999999999999990
-                break
+                energia += 1999999999999999999999999999999999999999999999999999
+                VerificarCor()
 
             elif Dresp == 4:
-                print("Não existe ainda")
+                while True:
+                    print(f"{DFrases3[DFraseNum]}")
+                    VerificarCor()
+
+                    Dresp = intup("Nota: ")
+
+                    if Dresp == 0:
+                        print(f"{fonteAzulEscuro}Dolf:{amarelo});")
+                        VerificarCor()
+
+                    elif Dresp >= 5 and Dresp < 10:
+                        print(f"{azulEscuro}Dolf:{amarelo} Pra mim isso já é alguma coisa.")
+                        print(f"{azulEscuro}Dolf:{amarelo} Mas podia ser melhor.")
+                        VerificarCor()
+
+                    elif Dresp >= 10:
+                        print(f"{azulEscuro}Dolf:{amarelo} AEEEEEEEE, UMA NOTA BOA. :D")
+                        VerificarCor()
+
+                    break
+            
+            elif Dresp == 0:
+                print(f"{azulEscuro}Dolf:{amarelo}Tchau, amigo.")
 
 
 
@@ -875,7 +1073,7 @@ while True:
         time.sleep(0.5)
         print("Para \'interagir\' deve digitar 1, 2, 3...")
         time.sleep(0.5)
-        print("Apareçera no canto da tela assim:")
+        print("Os números apareçeram no canto da tela assim:")
         time.sleep(0.5)
         print("[0] opção 1")
         print("[1] opção 2")
@@ -883,6 +1081,11 @@ while True:
         time.sleep(0.8)
         print("Digite uma das opções para interagir indo para uma nova área")
         print("Caso você saia do jogo, seu progresso será salvo em um arquivo JSON")
+        time.sleep(1)
+        print(f"{vermelho}Aviso: As personalizações do jogo são cores de fonte funciona no VsCode")
+        print("mas em alguns lugares as cores não funcionam.")
+        VerificarCor()
+        time.sleep(0.5)
         print("Atualizações com o tempo.")
         time.sleep(8)
 
@@ -899,12 +1102,13 @@ dados["feliz"] = feliz
 dados["banho"] = banho
 dados["nessecidades"] = nessecidades
 
+dados["nome"] = nome
+
 dados["pao"] = pao
 dados["salada"] = salada
 dados["pastel"] = pastel
 dados["coxinha"] = coxinha
 
-dados["nome"] = nome
 
 
 dados["pontuaçãoMaxima"] = pontuaçãoMaxima
@@ -918,6 +1122,17 @@ dados["amareloComprado"] = amareloComprado
 dados["roxoComprado"] = roxoComprado
 
 dados["Dolf"] = Dolf
+
+dados["AmigoDoDolf"] = AmigoDoDolf
+dados["Alimentado"] = Alimentado
+dados["GuerreiroMatematico"] = GuerreiroMatematico
+dados["NameTag"] = NameTag
+dados["sortudo"] = sortudo
+dados["rico"] = rico
+
+dados["nomes"] = nomes
+dados["comidasDadas"] = comidasDadas
+dados["vezes"] = vezes
 
 salvar_dados(dados)
 
