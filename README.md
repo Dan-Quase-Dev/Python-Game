@@ -24,7 +24,8 @@ def carregar_dados():
         with open("saveJ2.json", "r") as file:
             return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
-        return {"coins": 5, "fome": 40, "energia": 100, "feliz": 100, "nome": "Pou", "pontuaçãoMaxima": 0, "vermelhoComprado": False, "azulClaroComprado": False, "azulEscuroComprado": False, "verdeComprado": False, "amareloComprado": False, "roxoComprado": False, "Dolf": False, "nessecidades": 0, "banho": 0}  
+        return {"coins": 5, "fome": 40, "energia": 100, "feliz": 100, "nome": "Pou", "pontuaçãoMaxima": 0, "vermelhoComprado": False, "azulClaroComprado": False, "azulEscuroComprado": False, "verdeComprado": False, "amareloComprado": False, "roxoComprado": False, "Dolf": False, "nessecidades": 0, "banho": 0, "pao": 0, "salada": 0, "pastel": 1, "coxinha": 0, "AmigoDoDolf": False, "Alimentado": False, "GuerreiroMatematico": False, "sortudo": False, "NameTag": False, "rico": False, "nomes": 0, "comidasDadas": 0, "vezes": 0}  
+
         # essas variáveis eu que criei
         # Eu só ajeitei para funcionar no jogo
 
@@ -58,4 +59,11 @@ Então é só digitar 0, 1, 2 e as outras opções que tiver, ou seja se estiver
 Se de alguma forma você pegou esse código sem ver o desenvolvedor do jogo, bem, o criador desse jogo é @Dan-Quase-Dev
 
 
-### Obrigado pela antenção e pode jogar o jogo ou melhorar o código, ou você pode simplesmente ignorar isso tudo.
+## Atualizações:
+###Mudança na ReadMe:
+- Nova aba: Atualizações
+- Leve mudança na parte do "Código por IA"
+- Removido: Aba de agradecimento(pode voltar em breve)
+###Mudança no Código:
+- Conquistas adicionadas
+- Melhoria na aba "Info"
